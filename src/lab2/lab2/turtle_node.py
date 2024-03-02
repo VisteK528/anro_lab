@@ -1,5 +1,4 @@
 import time
-
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionClient
@@ -8,7 +7,6 @@ from turtlesim.srv import Spawn
 from turtlesim.srv._spawn import Spawn_Request
 from turtlesim.action._rotate_absolute import RotateAbsolute_Goal
 import numpy as np
-
 
 
 class AnroTurtleClient(Node):
@@ -33,8 +31,9 @@ class AnroTurtleClient(Node):
 
         self._default_turtle_rotate.wait_for_server()
         self.get_logger().info(f"Rotating first turtle to theta={angle} deg")
-        self._future = self._default_turtle_rotate.send_goal_async(message)
-        self._future.add_done_callback(self.goal_response_callback)
+        future = self._default_turtle_rotate.send_goal_async(message)
+        future.add_done_callback(self.goal_response_callback)
+        return future
 
     def done_callback(self, future):
         if self.spawn:
@@ -68,7 +67,7 @@ def main(args=None):
     rclpy.init(args=args)
 
     turtle_node = AnroTurtleClient()
-    turtle_node.rotate_default_turtle(180, True)
+    future2 = turtle_node.rotate_default_turtle(180, True)
 
     while not turtle_node.task_finished:
         rclpy.spin_once(turtle_node)

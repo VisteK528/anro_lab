@@ -5,10 +5,11 @@ on:
   push:
     branches:
       - main
+      - testing_ci_ros2
 
   # Triggered whenever a pull request is created on main
   pull_request:
-    branches: ["main"]
+    branches: ["main", "testing_ci_ros2"]
     types: [opened]
 
 

@@ -14,12 +14,23 @@ on:
 
 
 jobs:
-  test:
+  linting:
     runs-on: ubuntu-22.04
     steps:
-      - name: Echo
+      - name: Setup workspace
         run: |
-          echo "Hello There"
+          mkdir -p ros_ws/src/anro_lab
+          cd ros_ws
+      - uses: actions/checkout@v3
+        with:
+          path: ros_ws/src/anro_lab
+      - name: Configure linter
+        run: |
+          sudo apt update
+          pip3 install ruff
+          ruff src/
+
+
   build:
     # Create a container of the latest Ubuntu, other values could be
     # ubuntu-latest, ubuntu-22.04, etc.

@@ -28,7 +28,7 @@ jobs:
         run: |
           sudo apt update
           pip3 install ruff
-          ruff src/
+          ruff check src/
 
 
   build:

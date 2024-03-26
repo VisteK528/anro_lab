@@ -20,7 +20,6 @@ jobs:
       - name: Setup workspace
         run: |
           mkdir -p ros_ws/src/anro_lab
-          cd ros_ws
       - uses: actions/checkout@v3
         with:
           path: ros_ws/src/anro_lab
@@ -28,7 +27,7 @@ jobs:
         run: |
           sudo apt update
           pip3 install ruff
-          ruff check src/
+          ruff check ros_ws/src/
 
 
   build:

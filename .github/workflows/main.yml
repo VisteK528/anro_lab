@@ -14,6 +14,12 @@ on:
 
 
 jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Echo
+        run: |
+          echo "Hello There"
   build:
     # Create a container of the latest Ubuntu, other values could be
     # ubuntu-latest, ubuntu-22.04, etc.
